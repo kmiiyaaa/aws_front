@@ -73,7 +73,7 @@ function App() {
       }
 
       const res = await api.get("/api/auth/me", {
-        headers: { Authorization: `Bearer {token}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setMessage("현재 로그인한 사용자는 " + res.data.username + "님♡");
