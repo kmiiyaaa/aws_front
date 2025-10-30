@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "./axiosConfig.js";
 
 function App() {
@@ -8,6 +8,15 @@ function App() {
   const [message, setMessage] = useState("");
   const [token, setToken] = useState("" || localStorage.getItem("token")); //토큰값이 있으면 토큰값넣고 없으면 ""
   // localStorage → 웹브라우저에서 기본적으로 가지고 있는 저장소
+
+  useEffect(() => {
+    if(token){
+      userloginCheck();
+    }
+   
+  },[])
+
+  }
 
   //회원 가입
   const signUp = async (e) => {
@@ -53,10 +62,12 @@ function App() {
   };
 
   //로그아웃
-  const logout = async () => {
+  const logout = () => {
     //await api.post("/api/auth/logout");
+    userloginCheck();
     localStorage.removeItem("token"); // 토큰삭제 → 로그아웃
     setToken(""); // 토큰값 초기화
+    
     setMessage("★ " + username + " 로그아웃 ★");
   };
 
@@ -70,6 +81,7 @@ function App() {
       if (!token) {
         // 참이면 로그인 x
         alert("로그인 후 정보확인 가능합니다.");
+        return;
       }
 
       const res = await api.get("/api/auth/me", {
@@ -77,6 +89,7 @@ function App() {
       });
 
       setMessage("현재 로그인한 사용자는 " + res.data.username + "님♡");
+      setUsername(res.data.user);
     } catch (err) {
       console.error(err);
       alert("로그인 중인 사용자 정보를 가져올 수 없습니다.");
