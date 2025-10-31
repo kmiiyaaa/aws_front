@@ -10,11 +10,10 @@ function App() {
   // localStorage → 웹브라우저에서 기본적으로 가지고 있는 저장소
 
   useEffect(() => {
-    if(token){
+    if (token) {
       userloginCheck();
     }
-   
-  },[])
+  }, []);
 
   }
 
@@ -26,6 +25,7 @@ function App() {
         { username, password } // @requestbody로 보냄 -> Json타입으로
         //new URLSearchParams({ username, password }) //백엔드에서 @requestParam -> 파라미터 넘기기
       );
+       setMessage(username + "님 회원가입 성공하셨습니다!");
     } catch (err) {
       console.error();
       alert("회원가입 실패");
