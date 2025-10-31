@@ -15,8 +15,6 @@ function App() {
     }
   }, []);
 
-  }
-
   //회원 가입
   const signUp = async (e) => {
     try {
@@ -25,7 +23,7 @@ function App() {
         { username, password } // @requestbody로 보냄 -> Json타입으로
         //new URLSearchParams({ username, password }) //백엔드에서 @requestParam -> 파라미터 넘기기
       );
-       setMessage(username + "님 회원가입 성공하셨습니다!");
+      setMessage(username + "님 회원가입 성공하셨습니다!");
     } catch (err) {
       console.error();
       alert("회원가입 실패");
@@ -67,7 +65,9 @@ function App() {
     userloginCheck();
     localStorage.removeItem("token"); // 토큰삭제 → 로그아웃
     setToken(""); // 토큰값 초기화
-    
+    setUsername(""); //사용자 이름 초기화
+    setPassword(""); //비밀번호 초기화
+
     setMessage("★ " + username + " 로그아웃 ★");
   };
 
